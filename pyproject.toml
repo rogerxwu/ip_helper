@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "ip_helper"
+name = "ip-helper"
 version = "0.1.0"
 description = ""
 authors = ["Xian Wu <xianwuusa@gmail.com>"]
@@ -8,9 +8,10 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 pydantic = "^2.9.2"
+pytest = "^8.3.3"
 
 [tool.poetry.scripts]
-ip_helper = "main:main"
+ip-helper = "ip_helper.main:main"
 
 [build-system]
 requires = ["poetry-core"]

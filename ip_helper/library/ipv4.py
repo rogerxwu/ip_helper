@@ -1,15 +1,6 @@
-# usr/bin/python
-""" IP helper take ip/submast as the input and give detail for that subnet """
-"""
-To do:
-1. use pydantic to validate the format
-2. write test case
-"""
-import argparse
-
-
 class IPV4:
     def __init__(self, ip: str, submask_len: int) -> None:
+        """Take ip and submask_len as input"""
         self.length = 32
         self.ip = ip
         self.submask_len = submask_len
@@ -145,37 +136,3 @@ class IPV4:
         )[0:subnet_submask]
 
         return ip_network_address_in_binary == subnet_network_address_in_binary
-
-
-class IPV6:
-    def __init__(self) -> None:
-        length = 128
-        pass
-
-
-def main():
-    parser = argparse.ArgumentParser(
-        prog="IP Helper", description="Calculate subnet details"
-    )
-    parser.add_argument("subnet", type=str, help="Enter subnet in format IP/submask")
-    args = parser.parse_args()
-    # Need validate the subnet argument format
-    ip = args.subnet.split("/")[0]
-    submask = args.subnet.split("/")[1]
-
-    ip = IPV4(ip=ip, submask_len=int(submask))
-    print(f"IP Address: {ip.get_ip()}")
-    print(f"Network Address: {ip.get_ip_network_address()}")
-    print(f"Usable Host IP Range: {ip.get_ip_range()}")
-    print(f"Broadcast Address: {ip.get_ip_broadcast_address()}")
-    print(f"Total Number of Hosts: {ip.get_ip_available()}")
-    print(f"Number of Usable Hosts {ip.get_ip_usable()}")
-    print(f"Subnet Mask: {ip.get_submask_in_ip()}")
-    print(f"Wildcard Mask: {ip.get_wildcard_mask_in_ip()}")
-    print(f"Binary Subnet Mask: {ip.get_submask_in_binary()}")
-    print(f"CIDR Notation: /{submask}")
-    print(f"IP Type: {ip.get_ip_type()}")
-
-
-if __name__ == "__main__":
-    main()
