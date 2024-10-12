@@ -1,0 +1,41 @@
+name: Python CI
+
+# Run the workflow on push and pull requests to main or any branch
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  CI:
+    # Define the OS and environment
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: ['3.11']  # Test against multiple Python versions
+
+    steps:
+      # Checkout the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Python with the versions specified in the matrix
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # Install dependencies using Poetry or pip (choose one)
+      - name: Install dependencies (Poetry)
+        run: |
+          pip install poetry
+          poetry install
+
+      # Run tests using pytest
+      - name: Run tests
+        run: |
+          poetry run pytest

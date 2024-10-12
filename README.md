@@ -1,20 +1,23 @@
 # IP Helper
+![Build&Test Workflow](https://github.com/rogerxwu/ip_helper/actions/workflows/ci.yaml/badge.svg)
+![Build&Test Workflow](https://github.com/rogerxwu/ip_helper/actions/workflows/cd.yaml/badge.svg)
+![Python3.11](https://img.shields.io/badge/language-Python3.11-blue)
 
 ## Goal
 A tool to take the ip and submask as the input and return all IP addressing details
 
 ## Installation
+
+
+## Dev
 Make sure you have poetry installed, then run the following cmds
 ```
 poetry install
-poetry run ip-helper 1.1.1.1/24
 ```
 
 ## Test
-To run test case on ip_helper
+To run test manually
 ```
 # Pytest
-poetry run pytest test/test_ip_helper_pytest.py
-# Unittest
-poetry run python -m unittest test/test_ip_helper.py
+poetry run pytest tests/test_main.py
 ```
