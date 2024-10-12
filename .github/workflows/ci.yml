@@ -10,7 +10,7 @@ on:
       - main
 
 jobs:
-  CI:
+  test:
     # Define the OS and environment
     runs-on: ubuntu-latest
 
@@ -38,4 +38,4 @@ jobs:
       # Run tests using pytest
       - name: Run tests
         run: |
-          poetry run pytest
+          poetry run pytest   # For Poetry users
