@@ -1,6 +1,9 @@
-class IPV4:
+from ip_helper.library.ip import IP
+
+# derived class from abstract base class IP
+class IPV4(IP):
     def __init__(self, ip: str, submask_len: int) -> None:
-        """Take ip and submask_len as input"""
+        """Public attributes"""
         self.length = 32
         self.ip = ip
         self.submask_len = submask_len

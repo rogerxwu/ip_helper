@@ -5,6 +5,7 @@
 
 ## Goal
 A tool to take the ip and submask as the input and return all IP addressing details
+https://pypi.org/project/ip-helper/
 
 ## Install
 pip install ip-helper
@@ -13,6 +14,13 @@ pip install ip-helper
 Make sure you have poetry installed, then run the following cmds
 ```
 poetry install
+poetry run ip-helper -h
+poetry run ip-helper 8.8.8.8/20
+```
+
+## Debug
+```
+ip-helper [subnet] -v
 ```
 
 ## Test

@@ -3,8 +3,10 @@
 from ip_helper.library.ipv4 import IPV4
 from ip_helper.library.ipv6 import IPV6
 from ip_helper.library.ip_schema import IPAddressModel
+import logging
 import argparse
 import configparser
+logger = logging.getLogger(__name__)
 
 
 def main():
