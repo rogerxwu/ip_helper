@@ -25,7 +25,7 @@ ip-helper [subnet] -v #debug
 ```
 
 ## Dev and Contribute
-Run test and format check before commit your change
+Run the following test and check before commit your change
 Run pylint
 ```
 poetry run pylint .

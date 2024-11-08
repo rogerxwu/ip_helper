@@ -1,5 +1,6 @@
 from ip_helper.library.ip import IP
 
+
 # derived class from abstract base class IP
 class IPV4(IP):
     def __init__(self, ip: str, submask_len: int) -> None:
