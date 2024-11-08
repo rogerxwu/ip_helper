@@ -1,11 +1,20 @@
-class IPV4:
+#!/usr/bin/env python3
+""" 
+This derived class from abstract base class IP provides methods for IPV4
+"""
+from ip_helper.library.ip import IP
+
+
+class IPV4(IP):
+    """Derived class IPV4 from abstract base class IP"""
+
     def __init__(self, ip: str, submask_len: int) -> None:
-        """Take ip and submask_len as input"""
         self.length = 32
         self.ip = ip
         self.submask_len = submask_len
 
     def get_ip(self) -> str:
+        """Get IP"""
         return self.ip
 
     def get_ip_available(self) -> int:
@@ -29,6 +38,7 @@ class IPV4:
         return f"{first_octlet}.{second_octlet}.{third_octlet}.{fourth_octlet}"
 
     def get_submask_in_binary(self) -> str:
+        """Get submask in binary"""
         return self.convert_ip_to_binary(self.get_submask_in_ip())
 
     def get_wildcard_mask_in_ip(self) -> str:
@@ -49,8 +59,8 @@ class IPV4:
         for octlet in ip_divided_by_octlet:
             all_zero_octlet = ["0"] * 8
             octlet_in_binary = str(bin(int(octlet))[2:])
-            for i in range(len(octlet_in_binary)):
-                if octlet_in_binary[i] == "1":
+            for i, v in enumerate(octlet_in_binary):
+                if v == "1":
                     all_zero_octlet[8 - len(octlet_in_binary) + i] = "1"
             output.append("".join(all_zero_octlet))
 
@@ -80,7 +90,9 @@ class IPV4:
         return ".".join(output)
 
     def get_ip_broadcast_address(self) -> str:
-        """Do bitwise OR operation on ip and wildcard mask to get the broadcast address of the subnet"""
+        """
+        Do bitwise OR operation on ip and wildcard mask to get the broadcast address of the subnet
+        """
         ip_divided_by_octlet = self.convert_ip_to_binary(self.ip).split(".")
         submask_divided_by_octlet = self.convert_ip_to_binary(
             self.get_wildcard_mask_in_ip()
@@ -98,7 +110,7 @@ class IPV4:
     def get_ip_range(self) -> str:
         """Calculate usable ip range"""
         # Corner case, when submask length is 31 or 32, no usable IP
-        if self.submask_len == 31 or self.submask_len == 32:
+        if self.submask_len == (31, 32):
             return "NA"
         # first ip is the network address + 1
         ip_divided_by_octlet = self.get_ip_network_address().split(".")
