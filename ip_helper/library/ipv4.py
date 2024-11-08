@@ -4,15 +4,17 @@ This derived class from abstract base class IP provides methods for IPV4
 """
 from ip_helper.library.ip import IP
 
+
 class IPV4(IP):
-    """ Derived class IPV4 from abstract base class IP """
+    """Derived class IPV4 from abstract base class IP"""
+
     def __init__(self, ip: str, submask_len: int) -> None:
         self.length = 32
         self.ip = ip
         self.submask_len = submask_len
 
     def get_ip(self) -> str:
-        """ Get IP """
+        """Get IP"""
         return self.ip
 
     def get_ip_available(self) -> int:
@@ -36,7 +38,7 @@ class IPV4(IP):
         return f"{first_octlet}.{second_octlet}.{third_octlet}.{fourth_octlet}"
 
     def get_submask_in_binary(self) -> str:
-        """ Get submask in binary """
+        """Get submask in binary"""
         return self.convert_ip_to_binary(self.get_submask_in_ip())
 
     def get_wildcard_mask_in_ip(self) -> str:

@@ -6,5 +6,6 @@ from pydantic import BaseModel, IPvAnyInterface
 
 
 class IPAddressModel(BaseModel):
-    """ IP address Model class """
+    """IP address Model class"""
+
     address: IPvAnyInterface

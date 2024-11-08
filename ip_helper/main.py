@@ -5,17 +5,16 @@ IP helper take ip/submask as the input and give detail for that subnet
 import logging
 import argparse
 from ip_helper.library.ipv4 import IPV4
-#from ip_helper.library.ipv6 import IPV6
+
+# from ip_helper.library.ipv6 import IPV6
 from ip_helper.library.ip_schema import IPAddressModel
 
-#import configparser
+# import configparser
 logger = logging.getLogger(__name__)
 
 
-
-
 def main():
-    """ Main function """
+    """Main function"""
     parser = argparse.ArgumentParser(
         prog="IP Helper", description="Calculate subnet details"
     )
