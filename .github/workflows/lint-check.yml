@@ -1,4 +1,4 @@
-name: Format check
+name: Lint check
 
 # Run the workflow on push and pull requests to main or any branch
 on:
@@ -38,4 +38,4 @@ jobs:
       # Run format check
       - name: Run Black for format check
         run: |
-          poetry run black --check .
+          poetry run pylint .

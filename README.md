@@ -1,7 +1,8 @@
 # IP Helper
 ![PyTest Check](https://github.com/rogerxwu/ip_helper/actions/workflows/ci.yml/badge.svg)
 ![Publish](https://github.com/rogerxwu/ip_helper/actions/workflows/cd.yml/badge.svg)
-![Black Format Check](https://github.com/rogerxwu/ip_helper/actions/workflows/format-check.yml/badge.svg)
+![Format Check](https://github.com/rogerxwu/ip_helper/actions/workflows/format-check.yml/badge.svg)
+![Lint Check](https://github.com/rogerxwu/ip_helper/actions/workflows/lint-check.yml/badge.svg)
 ![Python3.11](https://img.shields.io/badge/language-Python3.11-blue)
 
 ## Goal
@@ -25,11 +26,15 @@ ip-helper [subnet] -v #debug
 
 ## Dev and Contribute
 Run test and format check before commit your change
-Run test
+Run pylint
+```
+poetry run pylint .
+```
+Run pytest
 ```
 poetry run pytest tests/test_main.py
 ```
-Run format check using black
+Run black
 ```
 poetry run black --check .
 ```
