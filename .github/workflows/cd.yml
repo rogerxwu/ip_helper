@@ -1,5 +1,5 @@
 # Publish to PyPI
-name: Publish Python package
+name: CD
 
 on:
   push:

@@ -1,9 +1,11 @@
+#!/usr/bin/env python3
+""" 
+This derived class from abstract base class IP provides methods for IPV6
+"""
 from ip_helper.library.ip import IP
 
-
-# derived class from abstract base class IP
 class IPV6(IP):
+    """ Derived class IPV6 from abstract base class IP """
     def __init__(self) -> None:
-        """Public attributes"""
-        length = 128
-        pass
+        """Constructor"""
+        #length = 128

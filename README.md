@@ -36,7 +36,8 @@ poetry run pytest tests/test_main.py
 ```
 Run black
 ```
-poetry run black --check .
+poetry run black --check .    # Check format
+poetry run black .    # Fix format
 ```
 
 
