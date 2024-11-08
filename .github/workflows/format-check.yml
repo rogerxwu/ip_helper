@@ -1,4 +1,4 @@
-name: CI
+name: Black
 
 # Run the workflow on push and pull requests to main or any branch
 on:
@@ -9,8 +9,8 @@ on:
     branches:
       - main
 
-jobs:          
-  pytest-check:
+jobs:
+  black-format-check:
     # Define the OS and environment
     runs-on: ubuntu-latest
 
@@ -35,7 +35,7 @@ jobs:
           pip install poetry
           poetry install
 
-      # Run tests using pytest
-      - name: Run tests
+      # Run format check
+      - name: Run Black for format check
         run: |
-          poetry run pytest
+          poetry run black --check .
