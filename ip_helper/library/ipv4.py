@@ -73,7 +73,8 @@ class IPV4(IP):
         Retrieve the subnet mask in binary format.
         
         Returns:
-            str: Binary representation of the subnet mask (e.g., '11111111.11111111.11111111.00000000').
+            str: Binary representation of the subnet mask 
+                (e.g., '11111111.11111111.11111111.00000000').
         """
         return self.convert_ip_to_binary(self.get_submask_in_ip())
 
