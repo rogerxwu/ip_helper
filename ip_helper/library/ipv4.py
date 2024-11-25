@@ -1,33 +1,64 @@
 #!/usr/bin/env python3
-""" 
-This derived class from abstract base class IP provides methods for IPV4
+"""
+This class implements methods for working with IPv4 addresses. It provides 
+utilities for subnetting, address type determination, and binary/decimal conversions.
 """
 from ip_helper.library.ip import IP
 
 
 class IPV4(IP):
-    """Derived class IPV4 from abstract base class IP"""
+    """Class for handling IPv4-specific operations, derived from the abstract IP base class."""
 
     def __init__(self, ip: str, submask_len: int) -> None:
+        """
+        Initialize an IPv4 object.
+        
+        Args:
+            ip (str): The IPv4 address in dotted-decimal notation (e.g., '192.168.1.1').
+            submask_len (int): The subnet mask length (e.g., 24 for '/24').
+        """
         self.length = 32
         self.ip = ip
         self.submask_len = submask_len
 
     def get_ip(self) -> str:
-        """Get IP"""
+        """
+        Retrieve the IPv4 address.
+        
+        Returns:
+            str: The IPv4 address in dotted-decimal notation.
+        """
         return self.ip
 
     def get_ip_available(self) -> int:
-        """This function take the submask_len as input, return the amonut of aviailable IPs"""
+        """
+        Calculate the total number of IP addresses in the subnet.
+        
+        Returns:
+            int: The total number of IPs, including network and broadcast addresses.
+        """
         return 2 ** (32 - int(self.submask_len))
 
     def get_ip_usable(self) -> int:
-        """This fucntion take the submask_len as input, return the amount of usable IPs"""
+        """
+        Calculate the number of usable IP addresses in the subnet.
+        
+        Returns:
+            int: The number of usable IPs (excludes network and broadcast addresses).
+            Returns 0 for /32, as no usable addresses exist in that case.
+        """
         # Corner case is when submask len is 32, no negative will return
         return 0 if self.submask_len == 32 else (2 ** (32 - int(self.submask_len)) - 2)
 
     def get_submask_in_ip(self) -> str:
-        """This function take the submask_len as intput, return submask in IP format"""
+        """
+        Generate the subnet mask in dotted-decimal format.
+        
+        Converts the subnet length into a binary string and formats it as an IPv4 address.
+        
+        Returns:
+            str: The subnet mask (e.g., '255.255.255.0' for /24).
+        """
         submask_in_binary = "1" * self.submask_len + "0" * (
             self.length - self.submask_len
         )
@@ -38,11 +69,23 @@ class IPV4(IP):
         return f"{first_octlet}.{second_octlet}.{third_octlet}.{fourth_octlet}"
 
     def get_submask_in_binary(self) -> str:
-        """Get submask in binary"""
+        """
+        Retrieve the subnet mask in binary format.
+        
+        Returns:
+            str: Binary representation of the subnet mask (e.g., '11111111.11111111.11111111.00000000').
+        """
         return self.convert_ip_to_binary(self.get_submask_in_ip())
 
     def get_wildcard_mask_in_ip(self) -> str:
-        """This function take the submask_len as input, return wildcard mask in IP format"""
+        """
+        Generate the wildcard mask in dotted-decimal format.
+        
+        The wildcard mask is the inverse of the subnet mask, used in access control and routing.
+        
+        Returns:
+            str: The wildcard mask (e.g., '0.0.0.255' for /24).
+        """
         submask_in_binary = "0" * self.submask_len + "1" * (
             self.length - self.submask_len
         )
@@ -53,7 +96,15 @@ class IPV4(IP):
         return f"{first_octlet}.{second_octlet}.{third_octlet}.{fourth_octlet}"
 
     def convert_ip_to_binary(self, ip_in_int: str) -> str:
-        """Convert IP address from int format to binary format"""
+        """
+        Convert an IPv4 address from dotted-decimal to binary format.
+        
+        Args:
+            ip_in_int (str): IPv4 address in dotted-decimal format.
+        
+        Returns:
+            str: Binary representation of the IPv4 address.
+        """
         ip_divided_by_octlet = ip_in_int.split(".")
         output = []
         for octlet in ip_divided_by_octlet:
@@ -67,7 +118,15 @@ class IPV4(IP):
         return ".".join(output)
 
     def convert_binary_to_ip(self, ip_in_binary: str) -> str:
-        """Convert IP address from binary format to int format"""
+        """
+        Convert an IPv4 address from binary to dotted-decimal format.
+        
+        Args:
+            ip_in_binary (str): Binary representation of an IPv4 address.
+        
+        Returns:
+            str: IPv4 address in dotted-decimal format.
+        """
         ip_divided_by_octlet = ip_in_binary.split(".")
         output = []
         for octlet in ip_divided_by_octlet:
@@ -76,7 +135,14 @@ class IPV4(IP):
         return ".".join(output)
 
     def get_ip_network_address(self) -> str:
-        """Do bitwise AND operation on ip and submask to get the network address of the subnet"""
+        """
+        Do bitwise AND operation on ip and submask to get the network address of the subnet.
+        
+        Args:
+            ip_in_binary (str): Binary representation of IPv4 address.
+        Returns:
+            str: IPv4 network address in dotted-decimal format
+        """
         ip_divided_by_octlet = self.convert_ip_to_binary(self.ip).split(".")
         submask_divided_by_octlet = self.convert_ip_to_binary(
             self.get_submask_in_ip()
@@ -91,7 +157,14 @@ class IPV4(IP):
 
     def get_ip_broadcast_address(self) -> str:
         """
-        Do bitwise OR operation on ip and wildcard mask to get the broadcast address of the subnet
+        Calculate the broadcast address of the subnet.
+
+        The broadcast address is obtained by performing a bitwise OR operation 
+        between the IP address and the wildcard mask. It is the highest address 
+        in the subnet and is used to send packets to all devices within the subnet.
+
+        Returns:
+            str: The broadcast address in dotted-decimal format.
         """
         ip_divided_by_octlet = self.convert_ip_to_binary(self.ip).split(".")
         submask_divided_by_octlet = self.convert_ip_to_binary(
@@ -108,7 +181,17 @@ class IPV4(IP):
         return ".".join(output)
 
     def get_ip_range(self) -> str:
-        """Calculate usable ip range"""
+        """
+        Calculate the range of usable IP addresses in the subnet.
+
+        The usable IP range excludes the network address and broadcast address.
+        Special cases:
+        - For subnets with /31 or /32, no usable IP addresses exist.
+
+        Returns:
+            str: A string representing the range of usable IPs in the format 
+                'first_ip ~ last_ip', or 'NA' if no usable IPs exist.
+        """
         # Corner case, when submask length is 31 or 32, no usable IP
         if self.submask_len == (31, 32):
             return "NA"
@@ -123,11 +206,17 @@ class IPV4(IP):
         return f"{first_ip} ~ {last_ip}"
 
     def get_ip_type(self) -> str:
-        """Check if ip is public or private"""
-        # Private IP range
-        # 10.0.0.0 to 10.255.255.255
-        # 172.16.0.0 to 172.31.255.255
-        # 192.168.0.0 to 192.168.255.255
+        """
+        Determine whether the IP address is public or private.
+
+        Private IP ranges:
+        - 10.0.0.0 to 10.255.255.255 (/8)
+        - 172.16.0.0 to 172.31.255.255 (/12)
+        - 192.168.0.0 to 192.168.255.255 (/16)
+
+        Returns:
+            str: 'Private' if the IP belongs to a private range, otherwise 'Public'.
+        """
         return (
             "Private"
             if self.check_if_ip_in_subnet(self.ip, "10.0.0.0/8")
@@ -137,7 +226,19 @@ class IPV4(IP):
         )
 
     def check_if_ip_in_subnet(self, ip, subnet) -> bool:
-        """To check if the ip in a subnet or not, return a boolen value"""
+        """
+        Check if the given IP address belongs to the specified subnet.
+
+        Compares the binary representations of the network addresses for both
+        the IP and the subnet, using the subnet mask length to determine equality.
+
+        Args:
+            ip (str): The IP address to check (e.g., '192.168.1.10').
+            subnet (str): The subnet in CIDR format (e.g., '192.168.1.0/24').
+
+        Returns:
+            bool: True if the IP address is within the subnet, False otherwise.
+        """
         subnet_ip = subnet.split("/")[0]
         subnet_submask = int(subnet.split("/")[1])
         ip_network_address_in_binary = self.convert_ip_to_binary(ip).replace(".", "")[
