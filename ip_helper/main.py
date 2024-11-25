@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """ 
-IP helper take ip/submask as the input and give detail for that subnet 
+IP Helper Tool: Provides detailed information about a given IP/subnet.
+
+This script takes an IP address and subnet mask in CIDR format (e.g., 192.168.1.0/24)
+as input and calculates subnet-related details such as network address, broadcast
+address, usable IP range, and other relevant data.
 """
 import logging
 import argparse
@@ -9,12 +13,18 @@ from ip_helper.library.ipv4 import IPV4
 # from ip_helper.library.ipv6 import IPV6
 from ip_helper.library.ip_schema import IPAddressModel
 
-# import configparser
+# Configure logging for debugging and error tracking
 logger = logging.getLogger(__name__)
 
 
 def main():
-    """Main function"""
+    """
+    Main function to parse input, validate it, and display subnet details.
+
+    - Accepts a subnet in CIDR format via command-line arguments.
+    - Validates the input format using a predefined schema.
+    - Uses the IPV4 class to compute and display various subnet attributes.
+    """
     parser = argparse.ArgumentParser(
         prog="IP Helper", description="Calculate subnet details"
     )

@@ -12,7 +12,7 @@ class IPV4(IP):
     def __init__(self, ip: str, submask_len: int) -> None:
         """
         Initialize an IPv4 object.
-        
+
         Args:
             ip (str): The IPv4 address in dotted-decimal notation (e.g., '192.168.1.1').
             submask_len (int): The subnet mask length (e.g., 24 for '/24').
@@ -24,7 +24,7 @@ class IPV4(IP):
     def get_ip(self) -> str:
         """
         Retrieve the IPv4 address.
-        
+
         Returns:
             str: The IPv4 address in dotted-decimal notation.
         """
@@ -33,7 +33,7 @@ class IPV4(IP):
     def get_ip_available(self) -> int:
         """
         Calculate the total number of IP addresses in the subnet.
-        
+
         Returns:
             int: The total number of IPs, including network and broadcast addresses.
         """
@@ -42,7 +42,7 @@ class IPV4(IP):
     def get_ip_usable(self) -> int:
         """
         Calculate the number of usable IP addresses in the subnet.
-        
+
         Returns:
             int: The number of usable IPs (excludes network and broadcast addresses).
             Returns 0 for /32, as no usable addresses exist in that case.
@@ -53,9 +53,9 @@ class IPV4(IP):
     def get_submask_in_ip(self) -> str:
         """
         Generate the subnet mask in dotted-decimal format.
-        
+
         Converts the subnet length into a binary string and formats it as an IPv4 address.
-        
+
         Returns:
             str: The subnet mask (e.g., '255.255.255.0' for /24).
         """
@@ -71,9 +71,9 @@ class IPV4(IP):
     def get_submask_in_binary(self) -> str:
         """
         Retrieve the subnet mask in binary format.
-        
+
         Returns:
-            str: Binary representation of the subnet mask 
+            str: Binary representation of the subnet mask
                 (e.g., '11111111.11111111.11111111.00000000').
         """
         return self.convert_ip_to_binary(self.get_submask_in_ip())
@@ -81,9 +81,9 @@ class IPV4(IP):
     def get_wildcard_mask_in_ip(self) -> str:
         """
         Generate the wildcard mask in dotted-decimal format.
-        
+
         The wildcard mask is the inverse of the subnet mask, used in access control and routing.
-        
+
         Returns:
             str: The wildcard mask (e.g., '0.0.0.255' for /24).
         """
@@ -99,10 +99,10 @@ class IPV4(IP):
     def convert_ip_to_binary(self, ip_in_int: str) -> str:
         """
         Convert an IPv4 address from dotted-decimal to binary format.
-        
+
         Args:
             ip_in_int (str): IPv4 address in dotted-decimal format.
-        
+
         Returns:
             str: Binary representation of the IPv4 address.
         """
@@ -121,10 +121,10 @@ class IPV4(IP):
     def convert_binary_to_ip(self, ip_in_binary: str) -> str:
         """
         Convert an IPv4 address from binary to dotted-decimal format.
-        
+
         Args:
             ip_in_binary (str): Binary representation of an IPv4 address.
-        
+
         Returns:
             str: IPv4 address in dotted-decimal format.
         """
@@ -138,7 +138,7 @@ class IPV4(IP):
     def get_ip_network_address(self) -> str:
         """
         Do bitwise AND operation on ip and submask to get the network address of the subnet.
-        
+
         Args:
             ip_in_binary (str): Binary representation of IPv4 address.
         Returns:
@@ -160,8 +160,8 @@ class IPV4(IP):
         """
         Calculate the broadcast address of the subnet.
 
-        The broadcast address is obtained by performing a bitwise OR operation 
-        between the IP address and the wildcard mask. It is the highest address 
+        The broadcast address is obtained by performing a bitwise OR operation
+        between the IP address and the wildcard mask. It is the highest address
         in the subnet and is used to send packets to all devices within the subnet.
 
         Returns:
@@ -190,7 +190,7 @@ class IPV4(IP):
         - For subnets with /31 or /32, no usable IP addresses exist.
 
         Returns:
-            str: A string representing the range of usable IPs in the format 
+            str: A string representing the range of usable IPs in the format
                 'first_ip ~ last_ip', or 'NA' if no usable IPs exist.
         """
         # Corner case, when submask length is 31 or 32, no usable IP

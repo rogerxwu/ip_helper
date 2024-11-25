@@ -42,5 +42,4 @@ poetry run black .    # Fix format
 
 
 ## To do
-1. add pylint for code analysis
-2. add black for formatting
+Add -v, -vv, -vvv debug mode
