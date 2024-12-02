@@ -5,11 +5,19 @@
 ![Lint Check](https://github.com/rogerxwu/ip_helper/actions/workflows/lint-check.yml/badge.svg)
 ![Python3.11](https://img.shields.io/badge/language-Python3.11-blue)
 
-## Goal
-A tool to take the ip and submask as the input and return all IP addressing details
-https://pypi.org/project/ip-helper/
+A tool to take the ip and submask as the input and return all IP addressing details, released at https://pypi.org/project/ip-helper/
 
-## Install
+## Table of Contents
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Introduction
+A tool to take the ip and submask as the input and return all IP addressing details
+
+## Installation
 Install from pip
 ```
 pip install ip-helper
@@ -20,11 +28,19 @@ git clone https://github.com/rogerxwu/ip_helper.git
 cd ip_helper
 poetry install
 poetry run ip-helper -h
-poetry run ip-helper 8.8.8.8/20
+```
+
+## Usage
+To check the ip details for 10.1.0.0/20
+```
+ip-helper 10.1.0.0/20
+```
+To debug
+```
 ip-helper [subnet] -v #debug
 ```
 
-## Dev and Contribute
+## Contributing
 Run the following test and check before commit your change
 Run pylint
 ```
